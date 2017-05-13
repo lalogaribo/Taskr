@@ -2,8 +2,11 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :find_task, only:[:edit, :update, :show, :destroy]
+  
     def index
-    @task = current_user.tasks
+    @to_do = current_user.tasks.where(state: 'to_do')
+    @doing = current_user.tasks.where(state: 'doing')
+    @done = current_user.tasks.where(state: 'done')
   end
   
     def new
@@ -43,7 +46,7 @@ class TasksController < ApplicationController
 
       private
     def task_params
-    params.require(:task).permit(:content)
+    params.require(:task).permit(:content, :state)
   end
     def find_task
     @task = Task.find(params[:id])
