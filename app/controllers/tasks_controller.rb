@@ -1,19 +1,17 @@
 
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_task, only:[:edit, :update, :show, :destroy]
-  
-    def index
+  before_action :find_task, only:[:edit, :update, :show, :destroy, :change]
+  def index
     @to_do = current_user.tasks.where(state: 'to_do')
     @doing = current_user.tasks.where(state: 'doing')
     @done = current_user.tasks.where(state: 'done')
   end
-  
     def new
     @task = Task.new 
   end
-    def edit
-      end
+  def edit
+  end
 
   def create
     @task = current_user.tasks.new(task_params)
@@ -26,7 +24,7 @@ class TasksController < ApplicationController
   end
 
   def update
-        if @task.update(task_params)
+    if @task.update(task_params)
       flash[:notice] = "Task was successfully updated"
       redirect_to task_path(@task)
     else
@@ -35,7 +33,7 @@ class TasksController < ApplicationController
   end
 
   def show
-      end
+  end
 
   def destroy
     if @task.destroy
@@ -43,12 +41,18 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     end
   end
+  
+  def change
+    @task.update_attributes(state: params[:state])
+    flash[:notice] = "Task status was successfully changed"
+    redirect_to task_path
+  end
 
-      private
-    def task_params
+  private
+  def task_params
     params.require(:task).permit(:content, :state)
   end
-    def find_task
+  def find_task
     @task = Task.find(params[:id])
   end
 end
