@@ -1,33 +1,20 @@
-<h2>To Do</h2>
 
-<%= link_to 'New Task', new_task_path %>
-  <table>
-    <tr>
-      <th> Content</th>
-      <th> State</th>
-      <th colspan = "4"></th></th>
-    </tr>
-  <%= render @to_do %>
-  </table>
+<p><%= link_to 'New Task', new_task_path %></p>
+
+<div class="row ">
+  <div class="col-md-4">
+    <h2 class = "text-center"> To Do</h2>
+      <%= render @to_do %>
+  </div>
   
-  <h2>Doing</h2>
-
-  <table>
-    <tr>
-      <th> Content</th>
-      <th> State</th>
-      <th colspan = "5"></th></th>
-    </tr>
-  <%= render @doing %>
-  </table>
+<div class="row ">
+  <div class="col-md-4">
+    <h2 class = "text-center"> Doing</h2>
+      <%= render @doing %>
+  </div>
   
-  <h2>Done</h2>
-
-  <table>
-    <tr>
-      <th> Content</th>
-      <th> State</th>
-      <th colspan = "4"></th></th>
-    </tr>
-  <%= render @done %>
-  </table>
+  <div class="row ">
+  <div class="col-md-4">
+    <h2 class = "text-center"> Done</h2>
+      <%= render @done %>
+  </div>
